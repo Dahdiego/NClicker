@@ -1,0 +1,195 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/fondo">
+
+    <Button
+        android:id="@+id/btatras"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerHorizontal="false"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/atras" />
+
+    <Button
+        android:id="@+id/btmenu"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_centerHorizontal="false"
+        android:layout_gravity="start"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="350dp"
+        android:background="@drawable/menu" />
+
+    <TextView
+        android:id="@+id/tvNanos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Nanos"
+        android:textColor="#F5686868"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/tvcontadorPuntos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="0"
+        android:textColor="#E4121212"
+        android:textSize="85sp" />
+
+    <TextView
+        android:id="@+id/tvcontadorPrestigio"
+        android:layout_width="50dp"
+        android:layout_height="63dp"
+        android:layout_below="@id/tvcontadorPuntos"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="sans-serif-medium"
+        android:textColor="#000000"
+        android:textSize="27sp"
+        android:text="0"
+        android:gravity="center"
+        android:background="@drawable/formadiamante" />
+    <TextView
+        android:id="@+id/tvmejora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvcontadorPuntos"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="135dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Mejora : 500 puntos"
+        android:textColor="#D7000000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tvlinea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btN"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="--------------TIENDA-------------"
+        android:textColor="#88FFFFFF"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/bt1"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/btN"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/bordes_redondos"
+        android:text="x3"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/bt2"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/btN"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="120dp"
+        android:background="@drawable/bordes_redondos"
+        android:text="x7"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/bt3"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/btN"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="210dp"
+        android:background="@drawable/bordes_redondos"
+        android:text="x16"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/bt4"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/btN"
+        android:layout_marginTop="75dp"
+        android:layout_marginLeft="300dp"
+        android:background="@drawable/bordes_redondos"
+        android:text="x34"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/bt5"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/bt1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="70dp"
+        android:background="@drawable/bordes_redondos"
+        android:text="x72"
+        android:textSize="20sp" />
+    <Button
+        android:id="@+id/bt6"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/bt2"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="165dp"
+        android:background="@drawable/bordes_redondos"
+        android:text="x153"
+        android:textSize="15sp" />
+    <Button
+        android:id="@+id/bt7"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/bt3"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="260dp"
+        android:background="@drawable/bordes_redondos"
+        android:text="x285"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/btN"
+        android:layout_width="340dp"
+        android:layout_height="110dp"
+        android:layout_below="@id/tvcontadorPrestigio"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:background="@drawable/bordes_redondos"
+        android:text="N"
+        android:textSize="30sp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animacion_spark"
+        android:layout_width="match_parent"
+        android:layout_height="509dp"
+        android:layout_marginTop="70dp"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animacion_spark2"
+        android:layout_width="200dp"
+        android:layout_height="509dp"
+        android:layout_marginTop="70dp"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animacion_spark3"
+        android:layout_width="260dp"
+        android:layout_height="509dp"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="200dp"
+        app:lottie_autoPlay="false"
+        app:lottie_loop="false" />
+
+
+</RelativeLayout>

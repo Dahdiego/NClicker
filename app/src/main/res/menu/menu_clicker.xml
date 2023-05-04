@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_reset"
+        android:title="Restablecer récord"
+        android:icon="@drawable/resetear"/>
+    <item
+        android:id="@+id/menu_total"
+        android:title="Nanos Totales" />
+</menu>

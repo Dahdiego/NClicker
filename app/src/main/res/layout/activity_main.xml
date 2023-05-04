@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo">
+
+    <!-- Contenido principal -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rlFondo">
+
+        <!-- Aquí puedes colocar el resto de tu diseño -->
+
+        <Button
+            android:id="@+id/btmenu"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:onClick="abrirMenu"
+            android:background="@drawable/menu"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"/>
+        <!--
+        <Button
+            android:id="@+id/btmusica"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="false"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="350dp"
+            android:background="@drawable/musicaon1"
+            android:onClick="isButtonOn"/>
+            -->
+        <Button
+            android:id="@+id/btinfo1"
+            android:soundEffectsEnabled="false"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_centerHorizontal="false"
+            android:layout_marginTop="310dp"
+            android:layout_marginLeft="360dp"
+            android:background="@drawable/informacion1" />
+
+        <Button
+            android:id="@+id/btinfo2"
+            android:soundEffectsEnabled="false"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_centerHorizontal="false"
+            android:layout_below="@+id/btinfo1"
+            android:layout_marginTop="95dp"
+            android:layout_marginLeft="360dp"
+            android:background="@drawable/informacion1" />
+
+        <Button
+            android:id="@+id/btinfo3"
+            android:soundEffectsEnabled="false"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_centerHorizontal="false"
+            android:layout_below="@+id/btinfo2"
+            android:layout_marginTop="95dp"
+            android:layout_marginLeft="360dp"
+            android:background="@drawable/informacion1" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animacion_rotar"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="190dp"
+            android:layout_centerHorizontal="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animacion_rotar2"
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="590dp"
+            android:layout_centerHorizontal="true"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+
+        <TextView
+            android:id="@+id/tvLogo"
+            android:layout_width="270dp"
+            android:layout_height="350dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/logonclicker1"/>
+
+        <Button
+            android:id="@+id/btNclicker"
+            android:soundEffectsEnabled="false"
+            android:layout_width="350dp"
+            android:layout_height="70dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="340dp"
+            android:background="@drawable/bordes_redondos"
+            android:text="NanoClick"
+            android:textSize="27sp" />
+
+        <Button
+            android:id="@+id/btFastTap"
+            android:soundEffectsEnabled="false"
+            android:layout_width="350dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/btNclicker"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/bordes_redondos"
+            android:text="FastTap"
+            android:textSize="27sp" />
+
+        <Button
+            android:id="@+id/btTimer"
+            android:soundEffectsEnabled="false"
+            android:layout_width="350dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/btFastTap"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/bordes_redondos"
+            android:text="TimeLive"
+            android:textSize="27sp" />
+
+    </RelativeLayout>
+
+    <!-- Menú lateral -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#E12E2E2E"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/menu_lateral">
+
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>
