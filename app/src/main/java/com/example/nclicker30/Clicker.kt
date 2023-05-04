@@ -260,7 +260,7 @@ class Clicker : AppCompatActivity()  {
                 // Incrementar contador de prestigio
                 // Actualizar la interfaz de usuario
                 hacerPrestigio()
-
+                
             }
         }
         // Configurar el evento de click para los botones
