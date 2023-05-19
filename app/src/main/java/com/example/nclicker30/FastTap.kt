@@ -5,28 +5,36 @@ import android.content.ContentValues
 import android.content.Context
 import android.content.res.ColorStateList
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.media.MediaPlayer
 import android.os.*
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.airbnb.lottie.LottieAnimationView
 import com.example.nclicker30.SQLiteHelper.Companion.TABLE_NAME2
+import com.google.android.material.navigation.NavigationView
 
 
-class FastTap : AppCompatActivity() {
+class FastTap : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var tvPoints: TextView
     private lateinit var tvTime: TextView
     private lateinit var btnClick: Button
     private lateinit var tvRecord: TextView
-    private lateinit var botonAtras2: Button
     private lateinit var botonMenu: Button
-    private lateinit var mediaPlayer: MediaPlayer
+    private lateinit var drawerLayout: DrawerLayout
+
 
     private var puntos: Int = 0
     private var timeLeft: Long = 15000 // Tiempo en milisegundos (15 segundos)
@@ -41,6 +49,15 @@ class FastTap : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main3)
+        drawerLayout = findViewById(R.id.drawer_layoutFastTap)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
         val animacion = AnimationUtils.loadAnimation(this, R.anim.presionar_boton)
         val animacion2 = AnimationUtils.loadAnimation(this, R.anim.anim_textview)
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -49,7 +66,6 @@ class FastTap : AppCompatActivity() {
         tvTime = findViewById(R.id.tvTime)
         btnClick = findViewById(R.id.btN)
         tvRecord = findViewById(R.id.tvRecord)
-        botonAtras2 = findViewById(R.id.btatras2)
         botonMenu = findViewById(R.id.btmenu)
 
         dbHelper = SQLiteHelper(this)
@@ -58,6 +74,7 @@ class FastTap : AppCompatActivity() {
         barraProgreso = findViewById(R.id.progressBar)
         barraProgreso.max = timeLeft.toInt() / 1000
         barraProgreso.progressTintList = ColorStateList.valueOf(ContextCompat.getColor(this, R.color.white))
+
 
         // Crear una animación de escala
         val animacion3 = ValueAnimator.ofFloat(1.0f, 0.95f, 1.0f)
@@ -78,52 +95,13 @@ class FastTap : AppCompatActivity() {
         // Iniciar la animación
         animacion3.start()
 
-        botonAtras2.setOnClickListener {
-            botonAtras2.startAnimation(animacion)
-            onBackPressed()
-        }
-        botonMenu.setOnClickListener {
+        botonMenu.setOnClickListener { view ->
             botonMenu.startAnimation(animacion)
-            // Crear un PopupMenu que se mostrará en el botón de menú
-            val popupMenu = PopupMenu(this, botonMenu)
-
-            // Inflar el archivo de menú en el PopupMenu
-            popupMenu.menuInflater.inflate(R.menu.menu_fasttap, popupMenu.menu)
-
-            // Configurar un OnMenuItemClickListener para el PopupMenu
-            popupMenu.setOnMenuItemClickListener {
-                    menuItem ->
-                // Determinar qué elemento del menú se ha seleccionado
-                when (menuItem.itemId) {
-                    R.id.menu_reset -> {
-                        // Crear un cuadro de diálogo para preguntar al usuario si realmente desea restablecer el récord
-                        AlertDialog.Builder(this, R.style.EstiloDialogo)
-                            .setTitle("¿Estás seguro?")
-                            .setMessage("¿Realmente deseas restablecer el récord?")
-                            .setPositiveButton("Sí") { _, _ ->
-                                // Si el usuario hace clic en "Sí", borrar el registro de la tabla NClicker2
-                                val db = dbHelper.writableDatabase
-                                db.delete(SQLiteHelper.TABLE_NAME2, null, null)
-                                db.close()
-                                val toast = Toast.makeText(this, "El Récord se ha restablecido", Toast.LENGTH_SHORT)
-                                toast.view?.setBackgroundResource(R.drawable.bordes_redondos)
-                                toast.view?.findViewById<TextView>(android.R.id.message)?.apply {
-                                    setTextColor(ContextCompat.getColor(context, R.color.white))
-                                    textSize = 16f
-                                }
-                                toast.show()
-                                tvRecord.text = "0"
-                            }
-                            .setNegativeButton("No", null)
-                            .show()
-                        true
-                    }
-                    else -> false
-                }
-            }
-            // Mostrar el PopupMenu
-            popupMenu.show()
+            abrirMenu(view)
         }
+        val navView: NavigationView = findViewById(R.id.nav_viewFastTap)
+        navView.setNavigationItemSelectedListener(this)
+
 
         btnClick.setOnClickListener {
             btnClick.startAnimation(animacion)
@@ -141,6 +119,69 @@ class FastTap : AppCompatActivity() {
             addPoint()
             if (!isRunning) startTimer()
         }
+    }//Fin del oncreate
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_fasttap, menu)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                drawerLayout.openDrawer(GravityCompat.START)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.iresetear -> {
+                // Crear un cuadro de diálogo para preguntar al usuario si realmente desea restablecer el récord
+                AlertDialog.Builder(this, R.style.EstiloDialogo)
+                    .setTitle("¿Estás seguro?")
+                    .setMessage("¿Realmente deseas restablecer el récord?")
+                    .setPositiveButton("Sí") { _, _ ->
+                        // Si el usuario hace clic en "Sí", borrar el registro de la tabla NClicker2
+                        val db = dbHelper.writableDatabase
+                        db.delete(SQLiteHelper.TABLE_NAME2, null, null)
+                        val toast = Toast.makeText(this, "El Récord se ha restablecido", Toast.LENGTH_SHORT)
+                        toast.view?.setBackgroundResource(R.drawable.bordes_redondos)
+                        toast.view?.findViewById<TextView>(android.R.id.message)?.apply {
+                            setTextColor(ContextCompat.getColor(context, R.color.white))
+                            textSize = 16f
+                        }
+                        toast.show()
+                        tvRecord.text = "0"
+                    }
+                    .setNegativeButton("No", null)
+                    .show()
+                true
+
+            }
+            R.id.icerrar -> {
+                // Acción al seleccionar la opción 3
+                finish()
+                true
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    fun abrirMenu(view: View) {
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layoutFastTap)
+        drawerLayout.openDrawer(GravityCompat.START)
     }
 
     override fun onPause() {

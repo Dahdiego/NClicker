@@ -23,17 +23,7 @@
             android:background="@drawable/menu"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"/>
-        <!--
-        <Button
-            android:id="@+id/btmusica"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_centerHorizontal="false"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="350dp"
-            android:background="@drawable/musicaon1"
-            android:onClick="isButtonOn"/>
-            -->
+
         <Button
             android:id="@+id/btinfo1"
             android:soundEffectsEnabled="false"
@@ -138,6 +128,16 @@
         android:background="#E12E2E2E"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/menu_lateral">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="-96dp"
+            android:background="#66000000"
+            android:gravity="center"
+            android:textColor="#8C8C8C"
+            android:text="Versión 3.0.1" />
 
     </com.google.android.material.navigation.NavigationView>
 

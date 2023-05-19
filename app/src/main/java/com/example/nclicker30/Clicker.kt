@@ -7,22 +7,29 @@ import android.content.Context
 import android.graphics.Color.*
 import android.os.*
 import android.util.TypedValue
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.navigation.NavigationView
 
-class Clicker : AppCompatActivity()  {
+class Clicker : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var contadorPuntos: TextView
     private lateinit var contadorPrestigio: TextView
     private lateinit var proximamejora: TextView
     private lateinit var tienda: TextView
+    private lateinit var drawerLayout: DrawerLayout
     private lateinit var textoNanos: TextView
     private lateinit var botonMenu: Button
     private lateinit var botonN: Button
-    private lateinit var botonAtras: Button
     private lateinit var boton1: Button
     private lateinit var boton2: Button
     private lateinit var boton3: Button
@@ -53,6 +60,16 @@ class Clicker : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
+        drawerLayout = findViewById(R.id.drawer_layoutClicker)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+
         val animacion = AnimationUtils.loadAnimation(this, R.anim.presionar_boton)
         val animacion2 = AnimationUtils.loadAnimation(this, R.anim.anim_textview)
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
@@ -63,7 +80,6 @@ class Clicker : AppCompatActivity()  {
         tienda = findViewById(R.id.tvlinea)
         botonN = findViewById(R.id.btN)
         botonMenu = findViewById(R.id.btmenu)
-        botonAtras = findViewById(R.id.btatras)
         boton2 = findViewById(R.id.bt2)
         boton3 = findViewById(R.id.bt3)
         boton4 = findViewById(R.id.bt4)
@@ -97,6 +113,7 @@ class Clicker : AppCompatActivity()  {
         dbHelper = SQLiteHelper(this)
         cargarJuego()
 
+
         boton1.isEnabled = false
         boton2.isEnabled = false
         boton3.isEnabled = false
@@ -105,13 +122,14 @@ class Clicker : AppCompatActivity()  {
         boton6.isEnabled = false
         boton7.isEnabled = false
 
-        botonAtras.setOnClickListener {
-            botonAtras.startAnimation(animacion)
-            onBackPressed()
-        }
-
-        botonMenu.setOnClickListener {
+        botonMenu.setOnClickListener { view ->
             botonMenu.startAnimation(animacion)
+            abrirMenu(view)
+        }
+        val navView: NavigationView = findViewById(R.id.nav_viewClicker)
+        navView.setNavigationItemSelectedListener(this)
+
+        /**
             // Crear un PopupMenu que se mostrará en el botón de menú
             val popupMenu = PopupMenu(this, botonMenu)
 
@@ -183,7 +201,7 @@ class Clicker : AppCompatActivity()  {
             // Mostrar el PopupMenu
             popupMenu.show()
         }
-
+**/
         botonN.setOnClickListener {
             val borderAnimationView = findViewById<LottieAnimationView>(R.id.animacion_spark)
             val borderAnimationView2 = findViewById<LottieAnimationView>(R.id.animacion_spark2)
@@ -224,7 +242,6 @@ class Clicker : AppCompatActivity()  {
             val tiempoEspera = 1L
             aumentarPuntos(valorInicial, valorFinal, incremento, tiempoEspera)
             // Sumar puntos
-            //puntos+=multiplicador
             // Actualizar la interfaz de usuario
             actualizarPuntos1()
             // Verificar si se desbloquea algún botón
@@ -260,7 +277,7 @@ class Clicker : AppCompatActivity()  {
                 // Incrementar contador de prestigio
                 // Actualizar la interfaz de usuario
                 hacerPrestigio()
-                
+
             }
         }
         // Configurar el evento de click para los botones
@@ -308,6 +325,103 @@ class Clicker : AppCompatActivity()  {
         }
 
     }//FinDelOnCreate
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_clicker, menu)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                drawerLayout.openDrawer(GravityCompat.START)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.iresetear -> {
+                // Crear un cuadro de diálogo para preguntar al usuario si realmente desea restablecer el récord
+                androidx.appcompat.app.AlertDialog.Builder(this, R.style.EstiloDialogo)
+                    .setTitle("¿Estás seguro?")
+                    .setMessage("¿Realmente deseas restablecer el récord?")
+                    .setPositiveButton("Sí") { _, _ ->
+                        // Si el usuario hace clic en "Sí", borrar el registro de la tabla NClicker2
+                        val db = dbHelper.writableDatabase
+                        db.delete(SQLiteHelper.TABLE_NAME2, null, null)
+                        db.close()
+                        contadorPuntos.text = "0"
+                        contadorPrestigio.text = "0"
+                        puntos = 0
+                        puntosTotales = 0
+                        prestigio = 0
+                        multiplicador = 1
+                        botonesDesbloqueados = 0
+                        botonN.text = "N"
+                        boton1.setBackgroundResource(R.drawable.bordes_redondos)
+                        boton2.setBackgroundResource(R.drawable.bordes_redondos)
+                        boton3.setBackgroundResource(R.drawable.bordes_redondos)
+                        boton4.setBackgroundResource(R.drawable.bordes_redondos)
+                        boton5.setBackgroundResource(R.drawable.bordes_redondos)
+                        boton6.setBackgroundResource(R.drawable.bordes_redondos)
+                        boton7.setBackgroundResource(R.drawable.bordes_redondos)
+                        boton1.setTextColor(WHITE)
+                        boton2.setTextColor(WHITE)
+                        boton3.setTextColor(WHITE)
+                        boton4.setTextColor(WHITE)
+                        boton5.setTextColor(WHITE)
+                        boton6.setTextColor(WHITE)
+                        boton7.setTextColor(WHITE)
+                        proximamejora.text = "Mejora : 500 puntos"
+                        val toast = Toast.makeText(this, "El Récord se ha restablecido", Toast.LENGTH_SHORT)
+                        toast.view?.setBackgroundResource(R.drawable.bordes_redondos)
+                        toast.view?.findViewById<TextView>(android.R.id.message)?.apply {
+                            setTextColor(ContextCompat.getColor(context, R.color.white))
+                            textSize = 16f
+                        }
+                        toast.show()
+                    }
+                    .setNegativeButton("No", null)
+                    .show()
+                true
+
+            }
+            R.id.iNanosT -> {
+                // Acción al seleccionar la opción 2
+                androidx.appcompat.app.AlertDialog.Builder(this@Clicker, R.style.EstiloDialogo)
+                    .setTitle("Nanos Totales")
+                    .setMessage("$puntosTotales")
+                    .setPositiveButton("Cerrar") { _, _ ->}
+                    .show()
+
+                true
+            }
+            R.id.icerrar -> {
+                // Acción al seleccionar la opción 3
+                finish()
+                true
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    fun abrirMenu(view: View) {
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layoutClicker)
+        drawerLayout.openDrawer(GravityCompat.START)
+    }
+
 
     // Función recursiva para aumentar gradualmente los puntos
     private fun aumentarPuntos(valorActual: Int, valorFinal: Int, incremento: Int, tiempoEspera: Long) {
@@ -494,7 +608,7 @@ class Clicker : AppCompatActivity()  {
                 // Actualizar el multiplicador
                 multiplicador = 3
                 boton1.setBackgroundResource(R.drawable.bordes_redondosgrises)
-                proximamejora.setText("Mejora : 1900 puntos")
+                proximamejora.text = "Mejora : 1900 puntos"
                 boton1.text = "x3"
                 botonN.text = "N x$multiplicador"
                 botonesDesbloqueados ++
@@ -510,7 +624,7 @@ class Clicker : AppCompatActivity()  {
                 // Actualizar el multiplicador
                 multiplicador = 7
                 boton2.setBackgroundResource(R.drawable.bordes_redondosgrises)
-                proximamejora.setText("Mejora : 5000 puntos")
+                proximamejora.text = "Mejora : 5000 puntos"
                 boton2.text = "x7"
                 botonN.text = "N x$multiplicador"
                 botonesDesbloqueados ++
@@ -526,7 +640,7 @@ class Clicker : AppCompatActivity()  {
                 // Actualizar el multiplicador
                 multiplicador = 16
                 boton3.setBackgroundResource(R.drawable.bordes_redondosgrises)
-                proximamejora.setText("Mejora : 10500 puntos")
+                proximamejora.text = "Mejora : 10500 puntos"
                 boton3.text = "x16"
                 botonN.text = "N x$multiplicador"
                 botonesDesbloqueados ++
@@ -542,7 +656,7 @@ class Clicker : AppCompatActivity()  {
                 // Actualizar el multiplicador
                 multiplicador = 34
                 boton4.setBackgroundResource(R.drawable.bordes_redondosgrises)
-                proximamejora.setText("Mejora : 30500 puntos")
+                proximamejora.text = "Mejora : 30500 puntos"
                 boton4.text = "x34"
                 botonN.text = "N x$multiplicador"
                 botonesDesbloqueados ++
@@ -558,7 +672,7 @@ class Clicker : AppCompatActivity()  {
                 // Actualizar el multiplicador
                 multiplicador = 72
                 boton5.setBackgroundResource(R.drawable.bordes_redondosgrises)
-                proximamejora.setText("Mejora : 80500 puntos")
+                proximamejora.text = "Mejora : 80500 puntos"
                 boton5.text = "x72"
                 botonN.text = "N x$multiplicador"
                 botonesDesbloqueados ++
@@ -574,7 +688,7 @@ class Clicker : AppCompatActivity()  {
                 // Actualizar el multiplicador
                 multiplicador = 153
                 boton6.setBackgroundResource(R.drawable.bordes_redondosgrises)
-                proximamejora.setText("Mejora : 175000 puntos")
+                proximamejora.text = "Mejora : 175000 puntos"
                 boton6.text = "x153"
                 botonN.text = "N x$multiplicador"
                 botonesDesbloqueados ++
@@ -586,7 +700,7 @@ class Clicker : AppCompatActivity()  {
                 // Actualizar el multiplicador
                 multiplicador = 285
                 boton7.setBackgroundResource(R.drawable.bordes_redondosgrises)
-                proximamejora.setText("Prestigio : 350000 puntos")
+                proximamejora.text = "Prestigio : 350000 puntos"
                 boton7.text = "x285"
                 botonN.text = "N x$multiplicador"
                 botonesDesbloqueados ++
@@ -625,6 +739,7 @@ class Clicker : AppCompatActivity()  {
             }
         }
     */
+
     override fun onPause() {
         super.onPause()
         guardar()

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/menu_reset"
-        android:title="Restablecer récord"
-        android:icon="@drawable/resetear"/>
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/icerrar"
+            android:title="Salir"
+            android:textSize="50sp"
+            android:icon="@drawable/cerrar" />
+        <item android:id="@+id/iresetear"
+            android:title="Restaurar Récord"
+            android:textSize="50sp"
+            android:icon="@drawable/resetear1" />
+    </group>
 </menu>

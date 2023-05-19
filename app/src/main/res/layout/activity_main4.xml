@@ -1,114 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layoutTimer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/fondo">
 
-    <Button
-        android:id="@+id/btatras3"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_centerHorizontal="false"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/atras" />
-
-    <Button
-        android:id="@+id/btmenu"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_centerHorizontal="false"
-        android:layout_gravity="start"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="350dp"
-        android:background="@drawable/menu" />
-
-    <TextView
-        android:id="@+id/tvTiempo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="275dp"
-        android:fontFamily="serif"
-        android:textColor="#EB000000"
-        android:text="10:00"
-        android:textSize="65sp" />
-
-    <TextView
-        android:id="@+id/tvracha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="0"
-        android:textColor="#E81E1E1E"
-        android:textSize="65sp" />
-
-
-    <ImageView
-        android:id="@+id/ivVidas"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginLeft="74dp"
-        android:layout_marginTop="120dp"
-        android:contentDescription="Imagen de corazones que indica la cantidad de vidas restantes"
-        android:src="@drawable/trescorazones" />
-
-
-
-    <TextView
-        android:id="@+id/tvTextoRachaRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tvTiempo"
-        android:layout_marginTop="225dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="Record:"
-        android:textColor="#E1FFFFFF"
-        android:textSize="22sp" />
-
-    <TextView
-        android:id="@+id/tvRachaRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/tvTextoRachaRecord"
-        android:layout_marginLeft="230dp"
-        android:layout_marginTop="10dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="0"
-        android:textColor="@color/white"
-        android:textSize="30sp" />
-
-    <Button
-        android:id="@+id/btParar"
-        android:layout_width="275dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/ivVidas"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
-        android:background="@drawable/bordes_redondos"
-        android:fontFamily="sans-serif-medium"
-        android:text="TIEMPO"
-        android:textSize="30sp" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animacion_fuegos"
+    <!-- Contenido principal -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:lottie_loop="false"
-        app:lottie_autoPlay="false" />
+        android:id="@+id/rlFondo1">
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animacion_confeti"
-        android:layout_width="400dp"
-        android:layout_height="390dp"
-        android:layout_marginTop="250dp"
-        android:layout_centerHorizontal="true"
-        app:lottie_loop="false"
-        app:lottie_autoPlay="false" />
+        <!-- Aquí puedes colocar el resto de tu diseño -->
 
-</RelativeLayout>
+
+        <Button
+            android:id="@+id/btmenu"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerHorizontal="false"
+            android:layout_gravity="start"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/menu" />
+
+        <TextView
+            android:id="@+id/tvTiempo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="275dp"
+            android:fontFamily="serif"
+            android:textColor="#EB000000"
+            android:text="10:00"
+            android:textSize="65sp" />
+
+        <TextView
+            android:id="@+id/tvracha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="0"
+            android:textColor="#E81E1E1E"
+            android:textSize="65sp" />
+
+
+        <ImageView
+            android:id="@+id/ivVidas"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginLeft="74dp"
+            android:layout_marginTop="120dp"
+            android:contentDescription="Imagen de corazones que indica la cantidad de vidas restantes"
+            android:src="@drawable/trescorazones" />
+
+
+
+        <TextView
+            android:id="@+id/tvTextoRachaRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tvTiempo"
+            android:layout_marginTop="225dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="Record:"
+            android:textColor="#E1FFFFFF"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tvRachaRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tvTextoRachaRecord"
+            android:layout_marginLeft="230dp"
+            android:layout_marginTop="10dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/btParar"
+            android:layout_width="275dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/ivVidas"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="90dp"
+            android:background="@drawable/bordes_redondos"
+            android:fontFamily="sans-serif-medium"
+            android:text="TIEMPO"
+            android:textSize="30sp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animacion_fuegos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_loop="false"
+            app:lottie_autoPlay="false" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animacion_confeti"
+            android:layout_width="400dp"
+            android:layout_height="390dp"
+            android:layout_marginTop="250dp"
+            android:layout_centerHorizontal="true"
+            app:lottie_loop="false"
+            app:lottie_autoPlay="false" />
+
+
+    </RelativeLayout>
+
+    <!-- Menú lateral -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_viewTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#E12E2E2E"
+        app:headerLayout="@layout/nav_headertimer"
+        app:menu="@menu/menu_fasttap">
+
+    </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>

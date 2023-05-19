@@ -1,104 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layoutFastTap"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/fondo">
 
-    <Button
-        android:id="@+id/btatras2"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_centerHorizontal="false"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="10dp"
-        android:background="@drawable/atras" />
+    <!-- Contenido principal -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rlFondo1">
 
-    <Button
-        android:id="@+id/btmenu"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_centerHorizontal="false"
+        <!-- Aquí puedes colocar el resto de tu diseño -->
+
+
+        <Button
+            android:id="@+id/btmenu"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerHorizontal="false"
+            android:layout_gravity="start"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/menu" />
+
+        <TextView
+            android:id="@+id/tvPoints"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="72dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#000000"
+            android:text="0"
+            android:textSize="80sp" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPoints"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#2B2A2A"
+            android:text="15"
+            android:textSize="34sp"
+            />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="280dp"
+            android:layout_height="25dp"
+            android:layout_below="@+id/tvTime"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            android:indeterminate="false"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/barra_progreso" />
+
+        <Button
+            android:id="@+id/btN"
+            android:layout_width="350dp"
+            android:layout_height="100dp"
+            android:layout_below="@id/tvTime"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="140dp"
+            android:background="@drawable/bordes_redondos"
+            android:text="N"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/tvracha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btN"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="42dp"
+            android:textColor="@color/white"
+            android:text="Record:"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvracha"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/white"
+            android:text="0"
+            android:textSize="24sp" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animacion_circulo"
+            android:layout_width="300dp"
+            android:layout_height="350dp"
+            android:layout_marginTop="270dp"
+            android:layout_centerHorizontal="true"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
+
+    </RelativeLayout>
+
+    <!-- Menú lateral -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_viewFastTap"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="350dp"
-        android:background="@drawable/menu" />
+        android:background="#E12E2E2E"
+        app:headerLayout="@layout/nav_headerfasttap"
+        app:menu="@menu/menu_fasttap">
 
-    <TextView
-        android:id="@+id/tvPoints"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="72dp"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="#000000"
-        android:text="0"
-        android:textSize="80sp" />
+    </com.google.android.material.navigation.NavigationView>
 
-    <TextView
-        android:id="@+id/tvTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvPoints"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="#2B2A2A"
-        android:text="15"
-        android:textSize="34sp"
-        />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="280dp"
-        android:layout_height="25dp"
-        android:layout_below="@+id/tvTime"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:indeterminate="false"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:progressDrawable="@drawable/barra_progreso" />
-
-    <Button
-        android:id="@+id/btN"
-        android:layout_width="350dp"
-        android:layout_height="100dp"
-        android:layout_below="@id/tvTime"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="140dp"
-        android:background="@drawable/bordes_redondos"
-        android:text="N"
-        android:textSize="30sp" />
-
-    <TextView
-        android:id="@+id/tvracha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btN"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="42dp"
-        android:textColor="@color/white"
-        android:text="Record:"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/tvRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvracha"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/white"
-        android:text="0"
-        android:textSize="24sp" />
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animacion_circulo"
-        android:layout_width="300dp"
-        android:layout_height="350dp"
-        android:layout_marginTop="270dp"
-        android:layout_centerHorizontal="true"
-        app:lottie_autoPlay="false"
-        app:lottie_loop="false" />
-
-</RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

@@ -7,18 +7,24 @@ import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.*
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import com.example.nclicker30.SQLiteHelper.Companion.TABLE_NAME3
 import java.util.*
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.material.navigation.NavigationView
 
 
-class Timer : AppCompatActivity() {
+class Timer : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var countdownTimer: CountDownTimer
     private var timeRemaining: Long = 0
@@ -30,8 +36,8 @@ class Timer : AppCompatActivity() {
     private lateinit var tvRachaRecord: TextView
     private lateinit var countdownText: TextView
     private lateinit var startButton: Button
-    private lateinit var botonAtras3: Button
     private lateinit var botonMenu: Button
+    private lateinit var drawerLayout: DrawerLayout
     private lateinit var imageViewCorazones: ImageView
 
     private lateinit var dbHelper: SQLiteHelper
@@ -41,6 +47,15 @@ class Timer : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main4)
+        drawerLayout = findViewById(R.id.drawer_layoutTimer)
+        val toggle = ActionBarDrawerToggle(
+            this,
+            drawerLayout,
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
         // Obtener una referencia al ProgressBar y asignar el drawable creado
 
@@ -49,7 +64,6 @@ class Timer : AppCompatActivity() {
 
         countdownText = findViewById(R.id.tvTiempo)
         startButton = findViewById(R.id.btParar)
-        botonAtras3 = findViewById(R.id.btatras3)
         rachaText = findViewById(R.id.tvracha)
         tvRachaRecord = findViewById(R.id.tvRachaRecord)
         botonMenu = findViewById(R.id.btmenu)
@@ -76,53 +90,13 @@ class Timer : AppCompatActivity() {
         // Iniciar la animación
         animacion3.start()
 
-
-        botonAtras3.setOnClickListener {
-            botonAtras3.startAnimation(animacion)
-            onBackPressed()
-        }
-        botonMenu.setOnClickListener {
+        botonMenu.setOnClickListener { view ->
             botonMenu.startAnimation(animacion)
-            // Crear un PopupMenu que se mostrará en el botón de menú
-            val popupMenu = PopupMenu(this, botonMenu)
-
-            // Inflar el archivo de menú en el PopupMenu
-            popupMenu.menuInflater.inflate(R.menu.menu_fasttap, popupMenu.menu)
-
-            // Configurar un OnMenuItemClickListener para el PopupMenu
-            popupMenu.setOnMenuItemClickListener {
-                    menuItem ->
-                // Determinar qué elemento del menú se ha seleccionado
-                when (menuItem.itemId) {
-                    R.id.menu_reset -> {
-                        // Crear un cuadro de diálogo para preguntar al usuario si realmente desea restablecer el récord
-                        AlertDialog.Builder(this, R.style.EstiloDialogo)
-                            .setTitle("¿Estás seguro?")
-                            .setMessage("¿Realmente deseas restablecer el récord?")
-                            .setPositiveButton("Sí") { _, _ ->
-                                // Si el usuario hace clic en "Sí", borrar el registro de la tabla NClicker3
-                                val db = dbHelper.writableDatabase
-                                db.delete(SQLiteHelper.TABLE_NAME3, null, null)
-                                db.close()
-                                val toast = Toast.makeText(this, "El Récord se ha restablecido", Toast.LENGTH_SHORT)
-                                toast.view?.setBackgroundResource(R.drawable.bordes_redondos)
-                                toast.view?.findViewById<TextView>(android.R.id.message)?.apply {
-                                    setTextColor(ContextCompat.getColor(context, R.color.white))
-                                    textSize = 16f
-                                }
-                                toast.show()
-                                tvRachaRecord.text = "0"
-                            }
-                            .setNegativeButton("No", null)
-                            .show()
-                        true
-                    }
-                    else -> false
-                }
-            }
-            // Mostrar el PopupMenu
-            popupMenu.show()
+            abrirMenu(view)
         }
+        val navView: NavigationView = findViewById(R.id.nav_viewTimer)
+        navView.setNavigationItemSelectedListener(this)
+
 
         startButton.setOnClickListener {
             startButton.startAnimation(animacion)
@@ -138,6 +112,69 @@ class Timer : AppCompatActivity() {
                 startTimer()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_fasttap, menu)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                drawerLayout.openDrawer(GravityCompat.START)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.iresetear -> {
+                // Crear un cuadro de diálogo para preguntar al usuario si realmente desea restablecer el récord
+                AlertDialog.Builder(this, R.style.EstiloDialogo)
+                    .setTitle("¿Estás seguro?")
+                    .setMessage("¿Realmente deseas restablecer el récord?")
+                    .setPositiveButton("Sí") { _, _ ->
+                        // Si el usuario hace clic en "Sí", borrar el registro de la tabla NClicker2
+                        val db = dbHelper.writableDatabase
+                        db.delete(SQLiteHelper.TABLE_NAME3, null, null)
+                        val toast = Toast.makeText(this, "El Récord se ha restablecido", Toast.LENGTH_SHORT)
+                        toast.view?.setBackgroundResource(R.drawable.bordes_redondos)
+                        toast.view?.findViewById<TextView>(android.R.id.message)?.apply {
+                            setTextColor(ContextCompat.getColor(context, R.color.white))
+                            textSize = 16f
+                        }
+                        toast.show()
+                        tvRachaRecord.text = "0"
+                    }
+                    .setNegativeButton("No", null)
+                    .show()
+                true
+
+            }
+            R.id.icerrar -> {
+                // Acción al seleccionar la opción 3
+                finish()
+                true
+            }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    fun abrirMenu(view: View) {
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawer_layoutTimer)
+        drawerLayout.openDrawer(GravityCompat.START)
     }
 
     private fun startTimer() {
