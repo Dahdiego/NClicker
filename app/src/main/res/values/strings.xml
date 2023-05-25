@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">NClicker</string>
+    <string name="navigation_drawer_open">abrir</string>
+    <string name="navigation_drawer_close">Cerrar</string>
+</resources>
