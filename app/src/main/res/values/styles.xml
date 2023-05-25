@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Especifica que no se debe mostrar la barra de acción -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Estilo personalizado para el diálogo -->
+    <style name="EstiloDialogo" parent="Theme.AppCompat.Light.Dialog">
+
+
+        <!-- Fondo negro -->
+        <item name="android:background">#DF000000</item>
+
+        <!-- Bordes redondeados -->
+        <item name="android:windowBackground">@drawable/bordes_redondos</item>
+
+        <!-- Texto en blanco -->
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
+
+</resources>
