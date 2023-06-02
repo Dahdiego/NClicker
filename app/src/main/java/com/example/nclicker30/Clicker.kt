@@ -173,7 +173,6 @@ class Clicker : AppCompatActivity(), NavigationView.OnNavigationItemSelectedList
             if (puntos >= 500 && botonesDesbloqueados == 0) {
                 desbloquearBoton(1)
             }
-
             if (puntos >= 1900 && botonesDesbloqueados == 1) {
                 desbloquearBoton(2)
             }

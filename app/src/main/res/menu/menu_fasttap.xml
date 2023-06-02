@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item android:id="@+id/icerrar"
-            android:title="Salir"
+            android:title="Cerrar"
             android:textSize="50sp"
             android:icon="@drawable/cerrar" />
         <item android:id="@+id/iresetear"
